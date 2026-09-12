@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Eye } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((previousState) => !previousState);
   };
 
   const closeMenu = () => {
     setIsOpen(false);
   };
+
+  // Works locally and on GitHub Pages
+  // Example:
+  // Local: /resume.pdf
+  // GitHub Pages: /ai-portfolio-2.0/resume.pdf
+  const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
 
   const navLinks = [
     { label: 'Home', href: '#home' },
@@ -20,63 +26,52 @@ const Navbar = () => {
     { label: 'Experience', href: '#experience' },
     { label: 'Research', href: '#research' },
     { label: 'Certificates', href: '#certificates' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Contact', href: '#contact' },
   ];
 
   return (
     <header className="navbar">
-
       <div className="nav-container">
-
         {/* Logo */}
         <a
           href="#home"
           className="nav-logo"
           onClick={closeMenu}
         >
-          <span className="nav-logo-badge">
-            AI
-          </span>
-
-          <span>
-            CHAHAT
-          </span>
+          <span className="nav-logo-badge">AI</span>
+          <span>CHAHAT</span>
         </a>
-
 
         {/* Desktop Navigation */}
         <nav className="nav-links desktop-nav">
-
-          {navLinks.map((link, index) => (
+          {navLinks.map((link) => (
             <a
-              key={index}
+              key={link.label}
               href={link.href}
-              className={`nav-link ${
-                index === 0 ? 'active' : ''
-              }`}
+              className="nav-link"
+              onClick={closeMenu}
             >
               {link.label}
             </a>
           ))}
-
         </nav>
-
 
         {/* Right Actions */}
         <div className="nav-right-actions">
-
+          {/* View CV Button */}
           <a
-            href="/resume.pdf"
-            download="Chahat-Kumar-Resume.pdf"
+            href={resumeUrl}
+            target="_self"
             className="btn-primary resume-btn"
+            aria-label="View Chahat Kumar CV"
           >
-            <Download size={15} />
-            Download CV
+            <Eye size={16} />
+            <span>View CV</span>
           </a>
-
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             className="mobile-toggle-btn"
             onClick={toggleMenu}
             aria-label="Toggle Navigation Menu"
@@ -88,24 +83,15 @@ const Navbar = () => {
               <Menu size={24} />
             )}
           </button>
-
         </div>
-
       </div>
 
-
       {/* Mobile Navigation */}
-      <div
-        className={`mobile-menu ${
-          isOpen ? 'open' : ''
-        }`}
-      >
-
+      <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
         <nav className="mobile-nav-links">
-
-          {navLinks.map((link, index) => (
+          {navLinks.map((link) => (
             <a
-              key={index}
+              key={link.label}
               href={link.href}
               className="mobile-nav-link"
               onClick={closeMenu}
@@ -114,22 +100,19 @@ const Navbar = () => {
             </a>
           ))}
 
-
-          {/* Mobile CV Button */}
+          {/* Mobile View CV Button */}
           <a
-            href="/resume.pdf"
-            download="Chahat-Kumar-Resume.pdf"
+            href={resumeUrl}
+            target="_self"
             className="btn-primary mobile-cv-btn"
             onClick={closeMenu}
+            aria-label="View Chahat Kumar CV"
           >
-            <Download size={16} />
-            Download CV
+            <Eye size={17} />
+            <span>View CV</span>
           </a>
-
         </nav>
-
       </div>
-
     </header>
   );
 };

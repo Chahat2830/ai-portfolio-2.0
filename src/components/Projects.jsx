@@ -66,7 +66,7 @@ const projectsList = [
       'Generative AI',
       'Web Application',
     ],
-    image: '/images/projects/ai-interview-coach.png',
+    image: './images/projects/Interview.png',
     github: '',
     demo: '',
   },
