@@ -117,7 +117,7 @@ const Hero = () => {
         <div className="hero-neural-bg"></div>
 
         <img
-          src="\images\profile\profile_image.png"
+          src="./images/profile/profile_image.png"
           alt="Chahat Kumar - AI/ML Engineer"
           className="hero-image"
         />
